@@ -34,8 +34,8 @@ namespace nationalparksapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<DateOnly>("Established")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Established")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");

@@ -11,8 +11,8 @@ using NationalParksApi.Models;
 namespace nationalparksapi.Migrations
 {
     [DbContext(typeof(NationalParksApiContext))]
-    [Migration("20230823051751_Intial")]
-    partial class Intial
+    [Migration("20230823071517_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,8 +36,8 @@ namespace nationalparksapi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<DateOnly>("Established")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Established")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
