@@ -37,9 +37,28 @@ public class NationalParksController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<NationalPark>> Post(NationalPark nationalPark)
     {
+        if (nationalPark.NationalParkId != 0)
+        {
+            return BadRequest();
+        }
         _db.NationalParks.Add(nationalPark);
         await _db.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = nationalPark.NationalParkId }, nationalPark);
     }
 
+    [HttpPut("/[controller]/{id}")]
+    public async Task<ActionResult<NationalPark>> Put(int id, NationalPark nationalPark)
+    {
+        if (id != nationalPark.NationalParkId)
+        {
+            return BadRequest();
+        }
+        else if (!_db.NationalParks.Any(m => m.NationalParkId == id))
+        {
+            return NotFound();
+        }
+        _db.NationalParks.Update(nationalPark);
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
 }
