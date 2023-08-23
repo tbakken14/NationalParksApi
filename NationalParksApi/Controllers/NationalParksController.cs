@@ -22,4 +22,10 @@ public class NationalParksController : ControllerBase
     {
         return await _db.NationalParks.ToListAsync();
     }
+
+    [HttpGet("/NationalParks/{id}")]
+    public async Task<ActionResult<NationalPark>> Get(int id)
+    {
+        return await _db.NationalParks.FirstOrDefaultAsync(m => m.NationalParkId == id);
+    }
 }
