@@ -18,13 +18,13 @@ public class NationalParksController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<NationalPark>>> Get()
+    public async Task<ActionResult<IEnumerable<NationalPark>>> GetPage()
     {
         return await _db.NationalParks.ToListAsync();
     }
 
-    [HttpGet("/[controller]/{id}")]
-    public async Task<ActionResult<NationalPark>> Get(int id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<NationalPark>> GetPark(int id)
     {
         NationalPark nationalPark = await _db.NationalParks.FirstOrDefaultAsync(m => m.NationalParkId == id);
         if (nationalPark == null)
@@ -35,7 +35,7 @@ public class NationalParksController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<NationalPark>> Post(NationalPark nationalPark)
+    public async Task<ActionResult<NationalPark>> PostPark(NationalPark nationalPark)
     {
         if (nationalPark.NationalParkId != 0)
         {
@@ -43,11 +43,11 @@ public class NationalParksController : ControllerBase
         }
         _db.NationalParks.Add(nationalPark);
         await _db.SaveChangesAsync();
-        return CreatedAtAction(nameof(Get), new { id = nationalPark.NationalParkId }, nationalPark);
+        return CreatedAtAction(nameof(GetPark), new { id = nationalPark.NationalParkId }, nationalPark);
     }
 
-    [HttpPut("/[controller]/{id}")]
-    public async Task<ActionResult<NationalPark>> Put(int id, NationalPark nationalPark)
+    [HttpPut("{id}")]
+    public async Task<ActionResult<NationalPark>> PutPark(int id, NationalPark nationalPark)
     {
         if (id != nationalPark.NationalParkId)
         {
@@ -61,4 +61,19 @@ public class NationalParksController : ControllerBase
         await _db.SaveChangesAsync();
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePark(int id)
+    {
+        NationalPark nationalPark = await _db.NationalParks.FindAsync(id);
+        if (nationalPark == null)
+        {
+            return NotFound();
+        }
+        _db.NationalParks.Remove(nationalPark);
+        await _db.SaveChangesAsync();
+
+        return NoContent();
+    }
+
 }
