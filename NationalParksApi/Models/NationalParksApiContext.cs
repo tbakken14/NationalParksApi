@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NationalParksApi.Models
 {
-    public class NationalParkApiContext : DbContext
+    public class NationalParksApiContext : DbContext
     {
         public DbSet<NationalPark> NationalParks { get; set; }
-        public NationalParkApiContext(DbContextOptions options) : base(options) { }
+        public NationalParksApiContext(DbContextOptions options) : base(options) { }
     }
 }
