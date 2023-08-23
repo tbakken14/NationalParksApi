@@ -4,7 +4,7 @@ namespace NationalParksApi.Models
     {
         public int NationalParkId { get; set; }
         public string Name { get; set; }
-        public DateOnly Established { get; set; }
+        public DateTime Established { get; set; }
         public float Area { get; set; }
         public int Visitors { get; set; }
         public string Description { get; set; }

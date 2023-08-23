@@ -23,9 +23,23 @@ public class NationalParksController : ControllerBase
         return await _db.NationalParks.ToListAsync();
     }
 
-    [HttpGet("/NationalParks/{id}")]
+    [HttpGet("/[controller]/{id}")]
     public async Task<ActionResult<NationalPark>> Get(int id)
     {
-        return await _db.NationalParks.FirstOrDefaultAsync(m => m.NationalParkId == id);
+        NationalPark nationalPark = await _db.NationalParks.FirstOrDefaultAsync(m => m.NationalParkId == id);
+        if (nationalPark == null)
+        {
+            return NotFound();
+        }
+        return nationalPark;
     }
+
+    [HttpPost]
+    public async Task<ActionResult<NationalPark>> Post(NationalPark nationalPark)
+    {
+        _db.NationalParks.Add(nationalPark);
+        await _db.SaveChangesAsync();
+        return CreatedAtAction(nameof(Get), new { id = nationalPark.NationalParkId }, nationalPark);
+    }
+
 }
