@@ -18,9 +18,13 @@ public class NationalParksController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<NationalPark>>> GetPage()
+    public async Task<ActionResult<IEnumerable<NationalPark>>> GetPage(int page)
     {
-        return await _db.NationalParks.ToListAsync();
+        int parksPerPage = 5;
+        return await _db.NationalParks
+            .Skip(page * parksPerPage)
+            .Take(parksPerPage)
+            .ToListAsync();
     }
 
     [HttpGet("{id}")]
