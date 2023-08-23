@@ -38,6 +38,17 @@ public class NationalParksController : ControllerBase
         return nationalPark;
     }
 
+    [HttpGet("{name}")]
+    public async Task<ActionResult<NationalPark>> GetPark(string name)
+    {
+        NationalPark nationalPark = await _db.NationalParks.FirstOrDefaultAsync(m => m.Name == name);
+        if (nationalPark == null)
+        {
+            return NotFound();
+        }
+        return nationalPark;
+    }
+
     [HttpPost]
     public async Task<ActionResult<NationalPark>> PostPark(NationalPark nationalPark)
     {
