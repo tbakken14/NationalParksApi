@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NationalParksApi.Models;
 
 namespace NationalParksApi.Controllers;
@@ -14,5 +15,11 @@ public class NationalParksController : ControllerBase
     {
         _logger = logger;
         _db = db;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<NationalPark>>> Get()
+    {
+        return await _db.NationalParks.ToListAsync();
     }
 }
