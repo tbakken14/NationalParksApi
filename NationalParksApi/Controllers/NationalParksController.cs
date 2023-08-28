@@ -27,7 +27,7 @@ public class NationalParksController : ControllerBase
             .ToListAsync();
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("id/{id}")]
     public async Task<ActionResult<NationalPark>> GetPark(int id)
     {
         NationalPark nationalPark = await _db.NationalParks.FirstOrDefaultAsync(m => m.NationalParkId == id);
@@ -38,7 +38,7 @@ public class NationalParksController : ControllerBase
         return nationalPark;
     }
 
-    [HttpGet("{name}")]
+    [HttpGet("name/{name}")]
     public async Task<ActionResult<NationalPark>> GetPark(string name)
     {
         NationalPark nationalPark = await _db.NationalParks.FirstOrDefaultAsync(m => m.Name == name);
